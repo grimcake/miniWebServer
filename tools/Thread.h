@@ -8,6 +8,7 @@ class CurrentThread
 {
 public:
     static pid_t getCurrentTid() {
+        // 获取当前线程id
         return syscall(SYS_gettid);
     }
 };
