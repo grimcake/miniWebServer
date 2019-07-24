@@ -32,6 +32,9 @@ public:
     }
     void poll(int timeout, ChannelList* activeChannels);
     void fillActiveChannels(int eventsNum, ChannelList* activeChannels);
+    int fd() {
+        return epollfd_;
+    }
     static Epoll* newPoller(EventLoop* loop);
 
 private:

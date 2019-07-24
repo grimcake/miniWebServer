@@ -24,7 +24,7 @@ void EventLoop::loop()
         // 先清空活跃事件列表
         activeChannels_.clear();
         // 再往活跃列表中添加事件
-        poller_->poll(1000, &activeChannels_);
+        poller_->poll(1000000, &activeChannels_);
         // 遍历活跃事件列表，交由各Channel去处理事件
         for(ChannelList::iterator it = activeChannels_.begin(); it!=activeChannels_.end(); it++)
         {

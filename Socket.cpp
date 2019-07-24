@@ -20,6 +20,16 @@ int socketops::createNonBlockfd(sa_family_t family)
     return sockfd;
 }
 
+int socketops::createBlockfd(sa_family_t family)
+{
+    int sockfd = socket(family, SOCK_STREAM | SOCK_CLOEXEC, IPPROTO_TCP);
+    if(sockfd < 0) 
+    {
+        std::cout << "socket create error" << std::endl;
+    }
+    return sockfd;
+}
+
 void socketops::Close(int fd)
 {
     int ret = close(fd);
@@ -46,6 +56,12 @@ int socketops::Accept(int fd, const InetAddress& peeraddr)
     if(connfd < 0)
     {
         std::cout << "socket accept error" << std::endl;
+    }
+    else
+    {
+        std::cout << "socket accept success" << std::endl;
+        char sendbuf[] = "111";
+        send(connfd, sendbuf, sizeof(sendbuf), 0);
     }
     return connfd;
 }

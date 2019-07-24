@@ -24,8 +24,9 @@ int main()
     }
     else
     {
-        char ch[10] = "1111";
-        write(sockfd, ch, strlen(ch));
+        char ch[10];
+        recv(sockfd, ch, sizeof(ch), 0);
+        std::cout << ch << std::endl;
     }
     
 }

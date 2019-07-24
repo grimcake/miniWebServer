@@ -28,6 +28,7 @@ public:
         }
     }
 
+
 private:
     typedef std::vector<Channel*> ChannelList;
     bool quit_;

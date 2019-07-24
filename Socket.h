@@ -5,6 +5,7 @@
 namespace socketops
 {
     int createNonBlockfd(sa_family_t family);
+    int createBlockfd(sa_family_t family);
     void Close(int fd);
     void Bind(int fd, const InetAddress& addr);
     int Accept(int fd, const InetAddress& peeraddr);

@@ -16,8 +16,11 @@ int main()
     printf("main(): pid = %d\n", getpid());
     InetAddress listenAddr(9981);
     EventLoop loop;
+   
     Acceptor acceptor(&loop, listenAddr);
+
     acceptor.setNewConnectCallback(newConnection);
     acceptor.listen();
-    loop.loop();
+    acceptor.handleRead();
+    //loop.loop();
 }
