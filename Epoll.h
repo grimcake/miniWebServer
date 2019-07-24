@@ -10,6 +10,14 @@ const int C_SNEW = -1;
 const int C_SADDED = 1;
 const int C_SDELETED = 2;
 
+class EventLoop;
+class Channel;
+
+namespace epollops
+{
+    
+}
+
 class Epoll
 {
 public:
@@ -18,12 +26,13 @@ public:
     ~Epoll();
     void updateChannel(Channel* channel);
     void update(int op, Channel* channel);
-    void assertInLoopThread() const
+    void assertInLoopThread() 
     {
-        ownerLoop_->assertInLoopThread();
+        //ownerLoop_->assertInLoopThread();
     }
     void poll(int timeout, ChannelList* activeChannels);
     void fillActiveChannels(int eventsNum, ChannelList* activeChannels);
+    static Epoll* newPoller(EventLoop* loop);
 
 private:
     static const int initEventListSize = 16;
@@ -38,4 +47,4 @@ private:
     EventList events_;
     // 每个文件描述符对应一个channel
     std::map<int, Channel*> channels_;
-}；
+};

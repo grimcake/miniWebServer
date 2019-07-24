@@ -2,6 +2,8 @@
 #include "EventLoop.h"
 #include <functional>
 
+class EventLoop;
+
 class Channel
 {
 public:
@@ -21,10 +23,7 @@ public:
     int state() const { return state_; }
     void setRevents(int revents) { revents_ = revents; }
     void setState(int state) { state_ = state; }
-    void setReadCallback(ReadEventCallback cb)
-    {
-        readCallback_ = std::move(cb);
-    }
+
 
 private:
     void update();

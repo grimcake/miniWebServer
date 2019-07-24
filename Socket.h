@@ -2,6 +2,15 @@
 #include <arpa/inet.h>
 #include "InetAddress.h"
 
+namespace socketops
+{
+    int createNonBlockfd(sa_family_t family);
+    void Close(int fd);
+    void Bind(int fd, const InetAddress& addr);
+    int Accept(int fd, const InetAddress& peeraddr);
+    void Listen(int fd);
+}
+
 class Socket
 {
 public:
@@ -9,11 +18,9 @@ public:
 
     int fd() const { return sockfd_; }
 
-    static int createNonBlockfd(sa_family_t family);
-    void Close(int fd);
-    void Bind(int fd, const InetAddress& addr);
-    int Accept(int fd, InetAddress* peeraddr);
 private:
     int sockfd_;
 };
+
+
 

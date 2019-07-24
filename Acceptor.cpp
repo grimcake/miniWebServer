@@ -1,13 +1,15 @@
 #include "Acceptor.h"
 #include "Socket.h"
 
+using namespace socketops;
+
 Acceptor::Acceptor(EventLoop* loop, const InetAddress& listenAddr) :
     loop_(loop),
-    acceptSocket_(Socket::createNonBlockfd(listenAddr.family)),
+    acceptSocket_(socketops::createNonBlockfd(listenAddr.family())),
     acceptChannel_(loop, acceptSocket_.fd()),
     listening_(false)
 {
-    acceptSocket_.Bind(acceptSocket_.fd(), listenAddr);
+    socketops::Bind(acceptSocket_.fd(), listenAddr);
     acceptChannel_.setReadCallback(std::bind(&Acceptor::handleRead, this));
 }
 
@@ -15,6 +17,11 @@ void Acceptor::handleRead()
 {
     loop_->assertInLoopThread();
     InetAddress peerAddr;
-    int connfd = acceptSocket_.Accept()
+    int connfd = socketops::Accept(acceptSocket_.fd(), peerAddr);
+}
 
+void Acceptor::listen()
+{
+    listening_ = true;
+    socketops::Listen(acceptSocket_.fd());
 }

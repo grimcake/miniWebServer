@@ -1,7 +1,13 @@
 #pragma once
 #include <iostream>
 #include <unistd.h>
+#include <memory>
+#include "Epoll.h"
 #include "tools/Thread.h"
+#include "Channel.h"
+
+class Epoll;
+class Channel;
 
 class EventLoop
 {
@@ -23,6 +29,11 @@ public:
     }
 
 private:
+    typedef std::vector<Channel*> ChannelList;
+    bool quit_;
     bool looping_;
     const pid_t threadId_;
+    // 因为一个loop只会有一个poller，所以用独占型智能指针
+    std::unique_ptr<Epoll> poller_;
+    ChannelList activeChannels_;
 };

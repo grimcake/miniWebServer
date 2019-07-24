@@ -28,7 +28,7 @@ void Channel::handleEvent()
     // 描述字不是一个打开的文件
     if(revents_ & POLLNVAL)
     {
-        std::cerr << "revents is POLLNVAL" << std::endl;
+        std::cout << "revents is POLLNVAL" << std::endl;
     }
     if(revents_ & POLLIN)
     {

@@ -91,3 +91,8 @@ void Epoll::fillActiveChannels(int eventsNum, ChannelList* activeChannels)
     }
 
 }
+
+Epoll* Epoll::newPoller(EventLoop* loop)
+{
+    return new Epoll(loop);
+}
