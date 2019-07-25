@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unistd.h>
+#include <string.h>
 #include "Socket.h"
 
 using namespace socketops;
@@ -73,4 +74,16 @@ void socketops::Listen(int fd)
     {
         std::cout << "listen error" << std::endl;
     }
+}
+
+struct sockaddr_in socketops::getLocalAddr(int fd)
+{
+    struct sockaddr_in peeraddr;
+    memset(&peeraddr, 0, sizeof(peeraddr));
+    socklen_t addrlen = static_cast<socklen_t>(sizeof peeraddr);
+    if (::getpeername(fd, (struct sockaddr*)&peeraddr, &addrlen) < 0)
+    {
+        std::cout << "sockets::getPeerAddr error" << std::endl;
+    }
+    return peeraddr;
 }
